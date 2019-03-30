@@ -8,10 +8,16 @@ def confirm():
 def set_africa(value):
     print("CLICKED ON AFRICAN COUNTRY: " + value)
     menu['options']['AFRICA']['options'][value]['name'] += " (Clicked)"
+    return True
 
 def set_europe(value):
     print("CLICKED ON EUROPEAN COUNTRY: " + value)
     menu['options']['EUROPE']['options'][value]['name'] += " (Clicked)"
+    return True
+
+def set_america(value):
+    print("CLICKED ON NA COUNTRY: " + value)
+    return False
 
 menu = {
     'name': "Set territories",
@@ -52,6 +58,17 @@ menu = {
                 }
             },
             'confirm': set_europe
+        },
+        "NA": {
+            'name': "North America and Leave",
+            'options': {
+                "US": {
+                    'name': "US thing",
+                    'value': "US"
+
+                }
+            },
+            'confirm': set_america
         }
     },
     'confirm': confirm

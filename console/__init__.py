@@ -87,5 +87,8 @@ class Console:
 		sys.stdout.write(ERASE_LINE)
 		selection = answer["question"]
 		if selection.selection_type() == ConsoleSelectionType.VALUE:
-			screen["confirm"](selection.value())
+			should_continue = screen["confirm"](selection.value())
+			if should_continue:
+				return selection
+			return DONE["value"]
 		return selection
