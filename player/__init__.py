@@ -31,19 +31,16 @@ class Territory:
 
 class Player:
 
-	def __init__(self, territories):
-		self._territories = territories
+	def __init__(self):
+		self._territories = {}
 
 	def pick_neighbor_to_attack(self, territory):
-		countries_owned = []
-		for territory_owned in self._territories:
-			countries_owned.append(territory_owned.country())
 		if territory.can_attack()==True:
 			country = territory.country()
 			attacks = country.neighbors()
 			potentials = []
 			for pick in attacks:
-				if pick not in countries_owned:
+				if pick.name() not in self._territories:
 					potentials.append(pick)
 			if len(potentials) != 0:
 				attack = rand.choice(potentials)
@@ -54,13 +51,20 @@ class Player:
 			return None
 
 	def pick_random_territory(self):
-		random_territory = rand.choice(self._territories)	
+		random_territory = rand.choice(list(self._territories.values()))	
 		return random_territory
 
-	def lose_territory(self, territory):
-		self._territories.remove(territory)
+	def territory_for_country(self, country):
+		if country.name() in self._territories:
+			return self._territories[country.name()]
+		else:
+			return None
 
-	def gain_territory(self, territory, strength):
-		self._territories.append(territory)
-		territory.set_strength(strength)
+	def lose_country(self, country):
+		country_name = country.name()
+		del self._territories[country_name]
+
+	def gain_country(self, country, strength):
+		new_territory = Territory(country, strength)
+		self._territories[country.name()] = new_territory
 		
