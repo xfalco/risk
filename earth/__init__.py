@@ -5,6 +5,9 @@ class Country:
 		self._name = name
 		self._neighbors = []
 
+	def name(self):
+		return self._name
+
 	def add_neighbor(self, neighbor):
 		if neighbor not in self._neighbors:
 			self._neighbors.append(neighbor)
@@ -37,6 +40,9 @@ class Continent:
 
 	def countries(self):
 		return self._countries
+
+	def name(self):
+		return self._name
 
 # COUNTRIES
 

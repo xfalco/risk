@@ -53,7 +53,6 @@ class Console:
 				self._selection.pop()
 			elif console_selection.selection_type() == ConsoleSelectionType.DONE:
 				break
-		self._menu["confirm"]()
 
 	def render_screen(self, screen):
 		console_options = []
