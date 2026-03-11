@@ -22,8 +22,8 @@ jobs:
       run: uv sync # or uv pip install -r requirements.txt
 
     - name: Run formatter
-      run: uv ruff format
-      
+      run: uv run ruff format
+
 
     - name: Validate no local changes
       run: |
