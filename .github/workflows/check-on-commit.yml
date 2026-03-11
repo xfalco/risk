@@ -1,0 +1,35 @@
+name: Check
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"] # Test across multiple Python versions
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install uv and set up Python ${{ matrix.python-version }}
+      # Use the official action from the astral-sh organization
+      uses: astral-sh/setup-uv@v7
+      with:
+        python-version: ${{ matrix.python-version }}
+        # Caching is enabled by default on GitHub-hosted runners
+        enable-cache: true
+
+    - name: Install dependencies
+      # uv can install dependencies from pyproject.toml or requirements.txt
+      run: uv sync # or uv pip install -r requirements.txt
+
+    - name: Run formatter
+      run: uv run ruff format
+
+
+    - name: Validate no local changes
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          git status --porcelain
+          exit 1
+        else
+          echo "no changes";
+        fi
