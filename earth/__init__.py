@@ -1,48 +1,47 @@
-
 class Country:
+    def __init__(self, name):
+        self._name = name
+        self._neighbors = []
 
-	def __init__(self, name):
-		self._name = name
-		self._neighbors = []
+    def name(self):
+        return self._name
 
-	def name(self):
-		return self._name
+    def add_neighbor(self, neighbor):
+        if neighbor not in self._neighbors:
+            self._neighbors.append(neighbor)
 
-	def add_neighbor(self, neighbor):
-		if neighbor not in self._neighbors:
-			self._neighbors.append(neighbor)
+    def add_neighbors(self, neighbors):
+        for neighbor in neighbors:
+            self.add_neighbor(neighbor)
 
-	def add_neighbors(self, neighbors):
-		for neighbor in neighbors:
-			self.add_neighbor(neighbor)
+    def neighbors(self):
+        return self._neighbors
 
-	def neighbors(self):
-		return self._neighbors
+    def __repr__(self):
+        return 'Country("{}")'.format(self._name)
 
-	def __repr__(self):
-		return "Country(\"{}\")".format(self._name)
 
 def link(country1, country2):
-	country1.add_neighbor(country2)
-	country2.add_neighbor(country1)
+    country1.add_neighbor(country2)
+    country2.add_neighbor(country1)
 
 
 class Continent:
+    def __init__(self, name, value):
+        self._name = name
+        self._value = value
+        self._countries = []
 
-	def __init__(self, name, value):
-		self._name = name
-		self._value = value
-		self._countries = []
+    def add_countries(self, countries):
+        for country in countries:
+            self._countries.append(country)
 
-	def add_countries(self, countries):
-		for country in countries:
-			self._countries.append(country)
+    def countries(self):
+        return self._countries
 
-	def countries(self):
-		return self._countries
+    def name(self):
+        return self._name
 
-	def name(self):
-		return self._name
 
 # COUNTRIES
 
@@ -55,7 +54,7 @@ WESTERN_EUROPE = Country("Western Europe")
 SOUTHERN_EUROPE = Country("Southern Europe")
 RUSSIA = Country("Russia")
 
-#North America
+# North America
 GREENLAND = Country("Greenland")
 ALASKA = Country("Alaska")
 NORTHWEST_TERRITORY = Country("Northwest territory")
@@ -66,13 +65,13 @@ WESTERN_US = Country("Western US")
 EASTERN_US = Country("Eastern US")
 CENTRAL_AMERICA = Country("Central America")
 
-#South America
+# South America
 VENEZUELA = Country("Venezuela")
 BRAZIL = Country("Brazil")
 PERU = Country("Peru")
 ARGENTINA = Country("Argentina")
 
-#North Africa
+# North Africa
 NORTH_AFRICA = Country("North Africa")
 EGYPT = Country("Egypt")
 CENTRAL_AFRICA = Country("Central Africa")
@@ -80,7 +79,7 @@ EAST_AFRICA = Country("East Africa")
 SOUTH_AFRICA = Country("South Africa")
 MADAGASCAR = Country("Madagascar")
 
-#Asia
+# Asia
 MIDDLE_EAST = Country("Middle East")
 AFGHANISTAN = Country("Afghanistan")
 URAL = Country("Ural")
@@ -94,7 +93,7 @@ CHINA = Country("China")
 INDIA = Country("India")
 SOUTHEAST_ASIA = Country("Southeast Asia")
 
-#Australia
+# Australia
 EASTERN_AUSTRALIA = Country("Eastern Australia")
 WESTERN_AUSTRALIA = Country("Western Australia")
 INDONESIA = Country("Indonesia")
@@ -176,7 +175,7 @@ link(YAKUTSK, IRKUTSK)
 link(KAMCHATKA, IRKUTSK)
 link(IRKUTSK, MONGOLIA)
 link(MONGOLIA, CHINA)
-link(CHINA,INDIA)
+link(CHINA, INDIA)
 link(INDIA, AFGHANISTAN)
 link(INDIA, MIDDLE_EAST)
 link(INDIA, SOUTHEAST_ASIA)
@@ -199,15 +198,54 @@ AFRICA = Continent("Africa", 3)
 ASIA = Continent("Asia", 7)
 AUSTRALIA = Continent("Australia", 2)
 
-EUROPE.add_countries([WESTERN_EUROPE, SOUTHERN_EUROPE, ICELAND, SCANDINAVIA, GREAT_BRITAIN, NORTHERN_EUROPE, RUSSIA])
-NORTH_AMERICA.add_countries([ALASKA, NORTHWEST_TERRITORY, GREENLAND, ALBERTA, ONTARIO, EASTERN_CANADA, WESTERN_US, EASTERN_US, CENTRAL_AMERICA])
+EUROPE.add_countries(
+    [
+        WESTERN_EUROPE,
+        SOUTHERN_EUROPE,
+        ICELAND,
+        SCANDINAVIA,
+        GREAT_BRITAIN,
+        NORTHERN_EUROPE,
+        RUSSIA,
+    ]
+)
+NORTH_AMERICA.add_countries(
+    [
+        ALASKA,
+        NORTHWEST_TERRITORY,
+        GREENLAND,
+        ALBERTA,
+        ONTARIO,
+        EASTERN_CANADA,
+        WESTERN_US,
+        EASTERN_US,
+        CENTRAL_AMERICA,
+    ]
+)
 SOUTH_AMERICA.add_countries([VENEZUELA, BRAZIL, PERU, ARGENTINA])
-AFRICA.add_countries([NORTH_AFRICA, EGYPT, EAST_AFRICA, CENTRAL_AFRICA, SOUTH_AFRICA, MADAGASCAR])
-ASIA.add_countries([MIDDLE_EAST, AFGHANISTAN, URAL, SIBERIA, YAKUTSK, KAMCHATKA, IRKUTSK, MONGOLIA, JAPAN, CHINA, INDIA, SOUTHEAST_ASIA])
+AFRICA.add_countries(
+    [NORTH_AFRICA, EGYPT, EAST_AFRICA, CENTRAL_AFRICA, SOUTH_AFRICA, MADAGASCAR]
+)
+ASIA.add_countries(
+    [
+        MIDDLE_EAST,
+        AFGHANISTAN,
+        URAL,
+        SIBERIA,
+        YAKUTSK,
+        KAMCHATKA,
+        IRKUTSK,
+        MONGOLIA,
+        JAPAN,
+        CHINA,
+        INDIA,
+        SOUTHEAST_ASIA,
+    ]
+)
 AUSTRALIA.add_countries([INDONESIA, NEW_GUINEA, WESTERN_AUSTRALIA, EASTERN_AUSTRALIA])
 # global variables
-CONTINENTS = [EUROPE,NORTH_AMERICA, SOUTH_AMERICA, AFRICA, ASIA, AUSTRALIA]
+CONTINENTS = [EUROPE, NORTH_AMERICA, SOUTH_AMERICA, AFRICA, ASIA, AUSTRALIA]
 
 COUNTRIES = []
 for continent in CONTINENTS:
-	COUNTRIES += continent.countries()
+    COUNTRIES += continent.countries()
